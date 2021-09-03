@@ -1,2 +1,2 @@
-from categorical import *
-from quantitative import *
+from marco.categorical import *
+from marco.quantitative import *
