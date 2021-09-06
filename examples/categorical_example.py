@@ -1,5 +1,6 @@
-from marco import categorical_table
 from pandas.core.frame import DataFrame
+
+from marco import categorical_table
 
 table: DataFrame = categorical_table(["Coke Classic", "Sprite", "Pepsi", "Diet Coke",
           "Coke Classic", "Coke Classic", "Pepsi", "Diet Coke",

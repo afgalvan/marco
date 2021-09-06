@@ -1,10 +1,12 @@
-from typing import List, Dict, Tuple
-from pandas import DataFrame, Series
 from enum import Enum, auto
-from numbers import Real
-from numpy import arange
 from math import ceil, log10
-from src.marco.quantitative_frame import QuantitativeFrame
+from numbers import Real
+from typing import Dict, List, Tuple
+
+from numpy import arange
+from pandas import DataFrame, Series
+
+from marco.quantitative_frame import QuantitativeFrame
 
 
 class QuantitativeType(Enum):

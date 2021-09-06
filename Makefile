@@ -17,3 +17,8 @@ lint:
 test:
 	pytest
 
+build:
+	pipenv run python setup.py sdist
+
+publish:
+	twine upload dist/*

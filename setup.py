@@ -1,9 +1,9 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="marco",
-    packages=find_packages(include=['src.marco'], exclude=['examples', 'tests']),
-    version="0.1.2",
+    packages=find_packages(include=['marco'], exclude=['examples', 'tests']),
+    version="0.1.5",
     license="MIT",
     description="Statistics class automation",
     author="Andres Galvan",

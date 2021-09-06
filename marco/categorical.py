@@ -1,4 +1,5 @@
-from typing import Any, List, Dict, Union
+from typing import Any, Dict, List, Union
+
 from pandas import DataFrame, Series
 
 
