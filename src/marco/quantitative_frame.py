@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from pandas import DataFrame, Series
 from numbers import Real
+from pandas import DataFrame, Series
 
 
 class QuantitativeFrame:

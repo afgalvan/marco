@@ -1,6 +1,7 @@
-from marco import QuantitativeFrame, quantitative_table, categorical_table
+from marco import categorical_table
+from pandas.core.frame import DataFrame
 
-a = categorical_table(["Coke Classic", "Sprite", "Pepsi", "Diet Coke",
+table: DataFrame = categorical_table(["Coke Classic", "Sprite", "Pepsi", "Diet Coke",
           "Coke Classic", "Coke Classic", "Pepsi", "Diet Coke",
           "Coke Classic", "Diet Coke", "Coke Classic", "Coke Classic",
           "Coke Classic", "Diet Coke", "Pepsi", "Coke Classic",
@@ -12,4 +13,4 @@ a = categorical_table(["Coke Classic", "Sprite", "Pepsi", "Diet Coke",
           "Dr. Pepper", "Pepsi", "Coke Classic", "Pepsi", "Sprite", 
           "Coke Classic", "Diet Coke"])
 
-print(a)
+print(table)

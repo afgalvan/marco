@@ -4,7 +4,7 @@ from enum import Enum, auto
 from numbers import Real
 from numpy import arange
 from math import ceil, log10
-from marco.quantitative_frame import QuantitativeFrame
+from src.marco.quantitative_frame import QuantitativeFrame
 
 
 class QuantitativeType(Enum):
