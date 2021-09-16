@@ -2,7 +2,6 @@
 Quantitative table generation
 """
 
-from marco.ungrouped_frame import UngroupedFrame
 from math import ceil, log10
 from numbers import Real
 from typing import Any, Dict, List, Tuple
@@ -10,21 +9,23 @@ from typing import Any, Dict, List, Tuple
 from numpy import arange
 from pandas import DataFrame, Series
 
-from marco.quantitative_frame import QuantitativeFrame
-from marco.grouped_frame import GroupedFrame
 from marco.categorical import map_categorical_data
-
+from marco.grouped_frame import GroupedFrame
+from marco.quantitative_frame import QuantitativeFrame
+from marco.ungrouped_frame import UngroupedFrame
 
 QuantitativeClass = List[Tuple[Real, Real]]
 
 
 def quantitative_table(data: List[Real]) -> QuantitativeFrame:
+    """Generate a QuantitativeFrame depending on the data size"""
     if len(data) > 20:
         return generate_grouped_table(data)
     return generate_ungrouped_table(sorted(data))
 
 
 def generate_grouped_table(data: List[Real]) -> GroupedFrame:
+    """Generates a GroupedFrame for data size more than 20 elements"""
     Ro = range_set(data)
     class_n = class_amount(len(data))
     fixed_data = apply_range_fix(data, Ro)
@@ -50,9 +51,11 @@ def generate_grouped_table(data: List[Real]) -> GroupedFrame:
 
 
 def generate_ungrouped_table(data: List[Real]) -> UngroupedFrame:
+    """
+    Generates a UngroupedFrame for the quantitative varibles when data size is up to 20
+    """
     mapped_data: Dict[Any, int] = map_categorical_data(data)
-    relative_frecuency = [v / sum(mapped_data.values())
-                          for v in mapped_data.values()]
+    relative_frecuency = [v / sum(mapped_data.values()) for v in mapped_data.values()]
     cumulative_relative = Series(relative_frecuency).cumsum()
     percentage_frequency = [i * 100 for i in relative_frecuency]
     return UngroupedFrame(
@@ -66,24 +69,29 @@ def generate_ungrouped_table(data: List[Real]) -> UngroupedFrame:
                 "Hi": cumulative_relative.tolist(),
                 "%": percentage_frequency,
             }
-        ))
+        ),
+    )
 
 
 def range_set(data: List[Real]) -> Real:
+    """Compute range set of a list of elements"""
     return max(data) - min(data)
 
 
 def class_amount(data_amount: int) -> int:
+    """Compute class amount (k) of a data size"""
     return ceil(1 + 3.3 * log10(data_amount))
 
 
 def interval(range_interval: Real, class_amount: int) -> int:
+    """Compute how wide is a data size"""
     return ceil(range_interval / class_amount)
 
 
 def quantitative_class(
     data: List[Real], interval: int, class_amount: int
 ) -> QuantitativeClass:
+    """Generates the classes from grouped data"""
     tuples_list = []
     lower_limit = data[0]
     for _ in range(class_amount):
@@ -95,14 +103,17 @@ def quantitative_class(
 
 
 def class_mark(quantitative_class: QuantitativeClass) -> List[Real]:
+    """Compute the class marks of each class in a quantitative class"""
     return [(q[0] + q[1]) / 2 for q in quantitative_class]
 
 
 def fix_range(class_amount: int, interval: int, range_interval: Real) -> Real:
+    """Get the fix range of a data size"""
     return class_amount * interval - range_interval
 
 
 def apply_range_fix(data: List[Real], range_interval: Real) -> List[Real]:
+    """Get a new list with the corner elements' range fixed"""
     sorted_data = sorted(data)
     class_n = class_amount(len(data))
     interval_value = interval(range_interval, class_n)
@@ -115,7 +126,8 @@ def apply_range_fix(data: List[Real], range_interval: Real) -> List[Real]:
 def quantitative_absolute_frecuency(
     data: List[Real], q_class: QuantitativeClass
 ) -> Dict[str, int]:
-    mapped = { str(clazz): 0 for clazz in q_class}
+    """Compute the absolute frecuency of a grouped data"""
+    mapped = {str(clazz): 0 for clazz in q_class}
     i = j = 0
 
     while i < len(data):

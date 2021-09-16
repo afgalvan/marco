@@ -1,9 +1,10 @@
-from typing import List, Tuple
-from numbers import Real
+"""Quantitative frame abstract class"""
 from abc import ABCMeta, abstractmethod
-from six import add_metaclass
+from numbers import Real
+from typing import List, Tuple
 
 from pandas import DataFrame, Series
+from six import add_metaclass
 
 
 @add_metaclass(ABCMeta)
@@ -24,26 +25,20 @@ class QuantitativeFrame:
 
     @abstractmethod
     def arithmetic_mean(self) -> Real:
-        """
-        """
+        """ """
 
     @abstractmethod
     def median(self) -> Real:
-        """
-        """
-
+        """ """
 
     @abstractmethod
     def trend(self) -> Real:
-        """
-        """
+        """ """
 
     @abstractmethod
     def median_row(self) -> DataFrame:
-        """
-        """
+        """ """
 
     @abstractmethod
     def trend_row(self) -> DataFrame:
-        """
-        """
+        """ """

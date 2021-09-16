@@ -4,6 +4,7 @@ from pandas import DataFrame, Series
 
 
 def categorical_table(data: Union[List, Dict]) -> DataFrame:
+    """Generate a dataframe with the required fields for a frecuency table of categorical variables"""
     mapped_data = data
     if isinstance(data, list):
         mapped_data = map_categorical_data(sorted(data))
@@ -27,6 +28,7 @@ def categorical_table(data: Union[List, Dict]) -> DataFrame:
 
 
 def map_categorical_data(data: List[Any]) -> Dict[Any, int]:
+    """Counts the absolute frecuency of a data"""
     mapped = dict()
     for element in data:
         mapped[element] = mapped.get(element, 0) + 1

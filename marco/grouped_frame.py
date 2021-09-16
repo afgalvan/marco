@@ -2,6 +2,7 @@ from numbers import Real
 from typing import List, Tuple
 
 from pandas import DataFrame, Series
+
 from marco.quantitative_frame import QuantitativeFrame
 
 

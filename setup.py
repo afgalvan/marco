@@ -2,8 +2,8 @@ from setuptools import find_packages, setup
 
 setup(
     name="marco",
-    packages=find_packages(include=['marco'], exclude=['examples', 'tests']),
-    version="0.1.5",
+    packages=find_packages(include=["marco"], exclude=["examples", "tests"]),
+    version="0.2.5",
     license="MIT",
     description="Statistics class automation",
     author="Andres Galvan",
@@ -11,10 +11,7 @@ setup(
     url="https://github.com/afgalvan/marco",
     download_url="https://github.com/afgalvan/marco/archive/v_01.tar.gz",
     keywords=["statistics", "pandas", "numpy"],
-    install_requires=[
-        "pandas",
-        "numpy"
-    ],
+    install_requires=["pandas", "numpy"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

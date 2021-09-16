@@ -8,8 +8,7 @@ from marco.quantitative_frame import QuantitativeFrame
 
 
 class UngroupedFrame(QuantitativeFrame):
-    """
-    """
+    """Quantitative ungrouped data entity"""
 
     def arithmetic_mean(self) -> Real:
         return sum(self.data) / len(self.data)
@@ -30,7 +29,9 @@ class UngroupedFrame(QuantitativeFrame):
         middle = self.median()
         index = floor(len(self.dataframe) / 2)
         if len(self.dataframe) % 2 != 0:
-            index = next(i for i, row in self.dataframe.iterrows() if row["Clase"] == middle)
+            index = next(
+                i for i, row in self.dataframe.iterrows() if row["Clase"] == middle
+            )
         return self.dataframe.iloc[[index]]
 
     def trend_row(self) -> DataFrame:
