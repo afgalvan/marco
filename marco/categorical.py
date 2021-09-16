@@ -6,7 +6,7 @@ from pandas import DataFrame, Series
 def categorical_table(data: Union[List, Dict]) -> DataFrame:
     mapped_data = data
     if isinstance(data, list):
-        mapped_data = map_categorical_data(data)
+        mapped_data = map_categorical_data(sorted(data))
 
     cumulative_absolute = Series(mapped_data.values()).cumsum()
     relative_frecuency = [v / sum(mapped_data.values()) for v in mapped_data.values()]

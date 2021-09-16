@@ -1,25 +1,30 @@
-from enum import Enum, auto
+"""
+Quantitative table generation
+"""
+
+from marco.ungrouped_frame import UngroupedFrame
 from math import ceil, log10
 from numbers import Real
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 from numpy import arange
 from pandas import DataFrame, Series
 
 from marco.quantitative_frame import QuantitativeFrame
-
-
-class QuantitativeType(Enum):
-    DISCRETE = auto()
-    CONTINUOUS = auto()
+from marco.grouped_frame import GroupedFrame
+from marco.categorical import map_categorical_data
 
 
 QuantitativeClass = List[Tuple[Real, Real]]
 
 
-def quantitative_table(
-    data: List[Real], type=QuantitativeType.CONTINUOUS
-) -> QuantitativeFrame:
+def quantitative_table(data: List[Real]) -> QuantitativeFrame:
+    if len(data) > 20:
+        return generate_grouped_table(data)
+    return generate_ungrouped_table(sorted(data))
+
+
+def generate_grouped_table(data: List[Real]) -> GroupedFrame:
     Ro = range_set(data)
     class_n = class_amount(len(data))
     fixed_data = apply_range_fix(data, Ro)
@@ -29,7 +34,7 @@ def quantitative_table(
     ni = quantitative_absolute_frecuency(sorted(data), q_class)
     mi_x_ni = [a * b for a, b in zip(mi, ni.values())]
 
-    return QuantitativeFrame(
+    return GroupedFrame(
         data,
         DataFrame(
             {
@@ -42,6 +47,26 @@ def quantitative_table(
         ),
         interval_value,
     )
+
+
+def generate_ungrouped_table(data: List[Real]) -> UngroupedFrame:
+    mapped_data: Dict[Any, int] = map_categorical_data(data)
+    relative_frecuency = [v / sum(mapped_data.values())
+                          for v in mapped_data.values()]
+    cumulative_relative = Series(relative_frecuency).cumsum()
+    percentage_frequency = [i * 100 for i in relative_frecuency]
+    return UngroupedFrame(
+        data,
+        DataFrame(
+            {
+                "Clase": mapped_data.keys(),
+                "ni": mapped_data.values(),
+                "Ni": Series(mapped_data.values()).cumsum().tolist(),
+                "hi": relative_frecuency,
+                "Hi": cumulative_relative.tolist(),
+                "%": percentage_frequency,
+            }
+        ))
 
 
 def range_set(data: List[Real]) -> Real:
@@ -90,11 +115,12 @@ def apply_range_fix(data: List[Real], range_interval: Real) -> List[Real]:
 def quantitative_absolute_frecuency(
     data: List[Real], q_class: QuantitativeClass
 ) -> Dict[str, int]:
-    mapped = dict()
+    mapped = { str(clazz): 0 for clazz in q_class}
     i = j = 0
+
     while i < len(data):
         if data[i] in arange(q_class[j][0], q_class[j][1], 0.5):
-            mapped[str(q_class[j])] = mapped.get(str(q_class[j]), 0) + 1
+            mapped[str(q_class[j])] = mapped.get(str(q_class[j])) + 1
             i += 1
         else:
             if j < len(q_class) - 1:
