@@ -4,12 +4,12 @@ Quantitative table generation
 
 from math import ceil, log10
 from numbers import Real
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
 from numpy import arange
 from pandas import DataFrame, Series
 
-from marco.categorical import map_categorical_data
+from marco.frecuency_table import frecuency_table
 from marco.grouped_frame import GroupedFrame
 from marco.quantitative_frame import QuantitativeFrame
 from marco.ungrouped_frame import UngroupedFrame
@@ -54,23 +54,7 @@ def generate_ungrouped_table(data: List[Real]) -> UngroupedFrame:
     """
     Generates a UngroupedFrame for the quantitative varibles when data size is up to 20
     """
-    mapped_data: Dict[Any, int] = map_categorical_data(data)
-    relative_frecuency = [v / sum(mapped_data.values()) for v in mapped_data.values()]
-    cumulative_relative = Series(relative_frecuency).cumsum()
-    percentage_frequency = [i * 100 for i in relative_frecuency]
-    return UngroupedFrame(
-        data,
-        DataFrame(
-            {
-                "Clase": mapped_data.keys(),
-                "ni": mapped_data.values(),
-                "Ni": Series(mapped_data.values()).cumsum().tolist(),
-                "hi": relative_frecuency,
-                "Hi": cumulative_relative.tolist(),
-                "%": percentage_frequency,
-            }
-        ),
-    )
+    return UngroupedFrame(data, frecuency_table(data))
 
 
 def range_set(data: List[Real]) -> Real:
