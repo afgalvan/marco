@@ -15,7 +15,11 @@ grouped_data = [
 ]
 
 quantitative_frame: QuantitativeFrame = quantitative_table(grouped_data)
-
+print(quantitative_frame.quantile())
+print("\nDecile")
+print(quantitative_frame.decile([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+print("\nPercentile")
+print(quantitative_frame.percentile([99]))
 print(quantitative_frame.dataframe)
 print("\n\nmedia aritmética: ", quantitative_frame.arithmetic_mean())
 print("moda: {:.2f}".format(quantitative_frame.trend()))
@@ -26,8 +30,11 @@ print("fila: ")
 print(quantitative_frame.median_row())
 
 # Ungrouped --------------------------------------------------------------
-ungrouped_data = [4, 5, 6, 5, 1, 3, 4, 5, 6, 3, 5, 3, 3, 3]
+ungrouped_data = [4, 4, 8, 8, 10, 10, 12, 12, 13, 16, 16, 20, 20, 22, 2]
 quantitative_frame: QuantitativeFrame = quantitative_table(ungrouped_data)
+print(quantitative_frame.quantile())
+print(quantitative_frame.decile([6, 4]))
+print(quantitative_frame.percentile([99]))
 print("Ta bli ta")
 print(quantitative_frame.dataframe)
 print("\nMedia arigmedica")

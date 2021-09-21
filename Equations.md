@@ -13,16 +13,15 @@ __________________________________________________________
 1. Sort the data (Ascending order).
 2. Apply the formula:
 
-        k = Must be 1, 2 or 3.
-
+        k = Must be 1, 2 or 3
         Pos(Qk) = k(n + 1) / 4
 
 Example:
 
         Sorted data
 
-            4   4   8   8   10  10  12  12  13
-            16  16  20  20  22  26  
+            4, 4, 8, 8, 10, 10, 12, 12, 13,
+            16, 16, 20, 20, 22, 26
             n = 15
 
         Finding Q2

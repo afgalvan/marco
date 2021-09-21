@@ -42,3 +42,15 @@ class QuantitativeFrame:
     @abstractmethod
     def trend_row(self) -> DataFrame:
         """ """
+
+    @abstractmethod
+    def quantile(self) -> Series:
+        """ """
+
+    @abstractmethod
+    def percentile(self, k: List[int]) -> List[Real]:
+        """ """
+
+    @abstractmethod
+    def decile(self, k: List[int]) -> List[Real]:
+        """ """
