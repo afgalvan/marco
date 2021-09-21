@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name="marco",
     packages=find_packages(include=["marco"], exclude=["examples", "tests"]),
-    version="0.2.5",
+    version="0.2.6",
     license="MIT",
     description="Statistics class automation",
     author="Andres Galvan",
