@@ -2,7 +2,8 @@
 # import sys
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from marco import QuantitativeFrame, quantitative_table
+from marco import GroupedFrame, QuantitativeFrame, quantitative_table
+from matplotlib.pyplot import show
 
 # Grouped data ----------------------------------------------------------
 grouped_data = [
@@ -14,7 +15,14 @@ grouped_data = [
     166, 172, 168, 163, 172,
 ]
 
-quantitative_frame: QuantitativeFrame = quantitative_table(grouped_data)
+quantitative_frame: GroupedFrame = quantitative_table(grouped_data)
+dataframe = quantitative_frame.dataframe
+print(dataframe)
+axe = dataframe["hi"].plot.hist(grid=True, bins=len(dataframe), rwidth=quantitative_frame.interval)
+for bar in axe.containers:
+    axe.bar_label(bar)
+show()
+
 print(quantitative_frame.quantile())
 print("\nDecile")
 print(quantitative_frame.decile([1, 2, 3, 4, 5, 6, 7, 8, 9]))

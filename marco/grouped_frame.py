@@ -2,7 +2,6 @@ from numbers import Real
 from typing import List, Tuple
 
 from pandas import DataFrame, Series
-from numpy import array, percentile
 
 from marco.quantitative_frame import QuantitativeFrame
 

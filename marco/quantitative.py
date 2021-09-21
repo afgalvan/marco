@@ -35,6 +35,10 @@ def generate_grouped_table(data: List[Real]) -> GroupedFrame:
     ni = quantitative_absolute_frecuency(sorted(data), q_class)
     mi_x_ni = [a * b for a, b in zip(mi, ni.values())]
 
+    relative_frecuency = [v / sum(ni.values()) for v in ni.values()]
+    cumulative_relative = Series(relative_frecuency).cumsum()
+    percentage_frequency = [i * 100 for i in relative_frecuency]
+
     return GroupedFrame(
         data,
         DataFrame(
@@ -43,10 +47,14 @@ def generate_grouped_table(data: List[Real]) -> GroupedFrame:
                 "mi": mi,
                 "ni": ni.values(),
                 "Ni": Series(ni.values()).cumsum().tolist(),
+                "hi": relative_frecuency,
+                "Hi": cumulative_relative,
+                "%": percentage_frequency,
+                "% acum": Series(percentage_frequency).cumsum().tolist(),
                 "mi x ni": mi_x_ni,
             },
         ),
-        interval_value,
+        interval_value
     )
 
 
