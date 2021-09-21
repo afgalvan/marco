@@ -93,7 +93,7 @@ def class_mark(quantitative_class: QuantitativeClass) -> List[Real]:
 
 def fix_range(class_amount: int, interval: int, range_interval: Real) -> Real:
     """Get the fix range of a data size"""
-    return class_amount * interval - range_interval
+    return (class_amount * interval - range_interval) / 2
 
 
 def apply_range_fix(data: List[Real], range_interval: Real) -> List[Real]:
@@ -101,7 +101,7 @@ def apply_range_fix(data: List[Real], range_interval: Real) -> List[Real]:
     sorted_data = sorted(data)
     class_n = class_amount(len(data))
     interval_value = interval(range_interval, class_n)
-    range_fix = fix_range(class_n, interval_value, range_interval) / 2
+    range_fix = fix_range(class_n, interval_value, range_interval)
     sorted_data[0] -= range_fix
     sorted_data[-1] += range_fix
     return sorted_data
@@ -115,7 +115,10 @@ def quantitative_absolute_frecuency(
     i = j = 0
 
     while i < len(data):
-        if data[i] in arange(q_class[j][0], q_class[j][1], 0.5):
+        value = data[i]
+        lower_limit = q_class[j][0]
+        upper_limit = q_class[j][1]
+        if value in arange(lower_limit, upper_limit, 0.5) or j >= len(q_class) - 1:
             mapped[str(q_class[j])] = mapped.get(str(q_class[j])) + 1
             i += 1
         else:

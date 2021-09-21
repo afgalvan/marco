@@ -19,7 +19,7 @@ class UngroupedFrame(QuantitativeFrame):
         return median(self.data)
 
     def trend(self) -> Real:
-        (_, row) = self._find_trend_row()
+        _, row = self._find_trend_row()
         return row["Clase"]
 
     def median_row(self) -> Series:
