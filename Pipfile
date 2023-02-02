@@ -9,7 +9,7 @@ numpy = "==1.21.4"
 
 [dev-packages]
 pytest = "==6.2.5"
-pylint = "==2.11.1"
+pylint = "==2.16.0"
 black = "==21.9b0"
 isort = "==5.9.3"
 pytest-pylint = "==0.18.0"
